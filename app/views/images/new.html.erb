@@ -1,3 +1,5 @@
+<p>Upload an image and click "create" to glitchify it.</p>
+
 <%= form_for @image, url: {action: "create"} do |f| %>
   <%= f.file_field :file %>
   <%= f.submit "Create" %>
