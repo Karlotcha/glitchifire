@@ -2,3 +2,7 @@
   <%= f.file_field :file %>
   <%= f.submit "Create" %>
 <% end %>
+
+<% if base64 = @image.base64 %>
+  <img src="data:<%= @image.content_type %>;base64,<%= base64 %>"/>
+<% end %>

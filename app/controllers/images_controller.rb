@@ -4,6 +4,7 @@ class ImagesController < ApplicationController
   end
 
   def create
-    # params['image']['file']
+    @image = params['image'] ? Image.new(params['image']['file']) : Image.new
+    render 'new'
   end
 end
