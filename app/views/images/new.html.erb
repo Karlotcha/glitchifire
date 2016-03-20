@@ -1,0 +1,7 @@
+<%= form_tag({action: :create}, multipart: true) do %>
+  <%= file_field_tag 'file' %>
+<% end %>
+
+# <%= form_for @image do |f| %>
+#   <%= f.file_field :file %>
+# <% end %>
