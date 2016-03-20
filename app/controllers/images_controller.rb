@@ -4,6 +4,6 @@ class ImagesController < ApplicationController
   end
 
   def create
-    binding.pry
+    # params['image']['file']
   end
 end
