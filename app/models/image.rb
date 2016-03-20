@@ -1,6 +1,10 @@
 # tableless class
 
 class Image
+  # Image Magick
+  require 'rmagick'
+  include Magick
+
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
@@ -12,6 +16,7 @@ class Image
     @file         = file
     @content_type = file.content_type
     @content      = file.read
+    @image        = Image.from_blob(@content).first
 
     glitchify!
   end
@@ -28,14 +33,10 @@ class Image
   private
 
   def glitchify!
-    headers = @content.split("\n")[0..4]
-    body = @content.split("\n")[5..-1]
-    new_body = body
-    new_body[0] = Base64.decode64(Base64.encode64(new_body[0]).sub('A', 'AA'))
-    # new_body = body.map { |l| Base64.decode64(Base64.encode64(l).sub('A', 'B')) }
+    @image = @image.add_noise(LaplacianNoise)
 
     # binding.pry
 
-    @content =(headers + new_body).join("\n")
+    @content = @image.to_blob
   end
 end
