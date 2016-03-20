@@ -63,8 +63,8 @@ class Image
       w = random.rand((width - x)/10 + 1)
       h = random.rand((height - y)/10 + 1)
       crop  = @image.crop(x, y, w, h)
-      x_moved = x-20+random.rand(20)
-      y_moved =  y-20+random.rand(20)
+      x_moved = x - 20 + random.rand(20)
+      y_moved = y - 20 + random.rand(20)
       @image = @image.composite(crop, x_moved, y_moved, OverCompositeOp)
     end
 
