@@ -33,9 +33,49 @@ class Image
   private
 
   def glitchify!
-    @image = @image.add_noise(LaplacianNoise)
+    noises = [
+      UniformNoise,
+      GaussianNoise,
+      MultiplicativeGaussianNoise,
+      ImpulseNoise,
+      LaplacianNoise,
+      PoissonNoise,
+      RandomNoise,
+    ]
+
+    width  = @image.columns
+    height = @image.rows
+
+    random = Random.new
+
+    100.times do
+      x = random.rand(width)
+      y = random.rand(height)
+      w = random.rand((width - x)/10 + 1)
+      h = random.rand((height - y)/10 + 1)
+      crop  = @image.crop(x, y, w, h).add_noise(noises.sample)
+      @image = @image.composite(crop, x, y, OverCompositeOp)
+    end
+
+    500.times do
+      x = random.rand(width)
+      y = random.rand(height)
+      w = random.rand((width - x)/10 + 1)
+      h = random.rand((height - y)/10 + 1)
+      crop  = @image.crop(x, y, w, h)
+      x_moved = x-20+random.rand(20)
+      y_moved =  y-20+random.rand(20)
+      @image = @image.composite(crop, x_moved, y_moved, OverCompositeOp)
+    end
 
     # binding.pry
+
+    # gc = Magick::Draw.new
+    # gc.stroke('red')
+    # gc.stroke_width(2)
+    # gc.fill('none')
+    # gc.rectangle(x, y, x+w, y+h)
+    # gc.draw(@image)
 
     @content = @image.to_blob
   end
