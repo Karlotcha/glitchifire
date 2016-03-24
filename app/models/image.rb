@@ -48,16 +48,17 @@ class Image
 
     random = Random.new
 
-    100.times do
+    10.times do
       x = random.rand(width)
       y = random.rand(height)
       w = random.rand((width - x)/10 + 1)
       h = random.rand((height - y)/10 + 1)
-      crop  = @image.crop(x, y, w, h).add_noise(noises.sample)
+      # crop  = @image.crop(x, y, w, h).add_noise(noises.sample)
+      crop  = @image.crop(x, y, w, h).add_noise(LaplacianNoise)
       @image = @image.composite(crop, x, y, OverCompositeOp)
     end
 
-    500.times do
+    50.times do
       x = random.rand(width)
       y = random.rand(height)
       w = random.rand((width - x)/10 + 1)
