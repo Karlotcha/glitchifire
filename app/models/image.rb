@@ -48,7 +48,7 @@ class Image
 
     random = Random.new
 
-    10.times do
+    50.times do
       x = random.rand(width)
       y = random.rand(height)
       w = random.rand((width - x)/10 + 1)
@@ -58,7 +58,7 @@ class Image
       @image = @image.composite(crop, x, y, OverCompositeOp)
     end
 
-    50.times do
+    200.times do
       x = random.rand(width)
       y = random.rand(height)
       w = random.rand((width - x)/10 + 1)
