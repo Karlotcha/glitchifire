@@ -17,7 +17,7 @@
     ctx.putImageData(image, 0, 0)
   }
 
-  function move_fragment(image, ctx) {
+  function moveFragment(image, ctx) {
     var x = rand(width)
       , y = rand(height)
       , w = rand((width - x)/10) + 1
@@ -27,6 +27,22 @@
       , fragment = ctx.getImageData(x, y, w, h)
 
     ctx.putImageData(fragment, dx, dy)
+  }
+
+  function colorFragment(image, ctx) {
+    var x = rand(width)
+      , y = rand(height)
+      , w = rand((width - x)/(rand(20)+1)) + 1
+      , h = rand((height - y)/(rand(20)+1)) + 1
+      , fragment = ctx.getImageData(x, y, w, h)
+      , index = (x + y * w) * 4
+      , color = rand (3)
+
+    for (var i = 0; i < index; i=i+4) {
+      fragment.data[i + color] = 0
+    }
+
+    ctx.putImageData(fragment, x, y)
   }
 
   var source_img = document.getElementById("source")
@@ -40,7 +56,8 @@
   updateCanvas(image, ctx)
 
   for (var i = 0; i < 500; i++) {
-    move_fragment(image, ctx)
+    colorFragment(image, ctx)
+    moveFragment(image, ctx)
   }
 
 });
