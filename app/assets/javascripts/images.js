@@ -36,10 +36,11 @@
       , h = rand((height - y)/(rand(20)+1)) + 1
       , fragment = ctx.getImageData(x, y, w, h)
       , index = (x + y * w) * 4
-      , color = rand (3)
+      , color = rand(3)
+      , new_color = rand(255)
 
     for (var i = 0; i < index; i=i+4) {
-      fragment.data[i + color] = 0
+      fragment.data[i + color] = new_color
     }
 
     ctx.putImageData(fragment, x, y)
