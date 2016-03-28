@@ -6,5 +6,8 @@
 <% end %>
 
 <% if base64 = @image.base64 %>
-  <img src="data:<%= @image.content_type %>;base64,<%= base64 %>"/>
+  <img style="display: none;" id="source" src="data:<%= @image.content_type %>;base64,<%= base64 %>"/>
+
+  <canvas id="canvas" width="<%= @image.width %>" height="<%= @image.height %>">
+  </canvas>
 <% end %>

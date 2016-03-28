@@ -18,7 +18,15 @@ class Image
     @content      = file.read
     @image        = Image.from_blob(@content).first
 
-    glitchify!
+    # glitchify!
+  end
+
+  def width
+    @width ||= @image.columns
+  end
+
+  def height
+    @height ||= @image.rows
   end
 
   def base64
@@ -42,9 +50,6 @@ class Image
       PoissonNoise,
       RandomNoise,
     ]
-
-    width  = @image.columns
-    height = @image.rows
 
     random = Random.new
 
